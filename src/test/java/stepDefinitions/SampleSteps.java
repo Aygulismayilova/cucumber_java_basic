@@ -5,6 +5,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -91,19 +92,22 @@ public class SampleSteps {
         // Write code here that turns the phrase above into concrete actions
         driver.get("https://kristinek.github.io/site/examples/actions");
     }
+
     @When("^I enter \"([^\"]*)\" text$")
     public void iEnterText(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         String textInput = "asdf";
-        WebElement textBox =  driver.findElement(By.id("text"));
+        WebElement textBox = driver.findElement(By.id("text"));
         textBox.clear();
         textBox.sendKeys(textInput);
 
     }
+
     @And("^I click the result button$")
     public void iClickTheResultButton() throws Throwable {
         driver.findElement(By.id("result_button_text")).click();
     }
+
     @Then("^I see correct result with text \"([^\"]*)\"$")
     public void iSeeCorrectResultWithText(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
@@ -112,15 +116,12 @@ public class SampleSteps {
     }
 
 
-
-
-
     @When("^I enter number (\\d+)$")
-    public void iEnterNumber(int number) throws Throwable {
+    public void EnterNumber(int number) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         driver.findElement(By.id("text")).clear();
         driver.findElement(By.id("text")).sendKeys(String.valueOf(number));
-        }
+    }
 
 
     @And("^I click the result number button$")
@@ -142,7 +143,61 @@ public class SampleSteps {
     }
 
 
-}
+//Task 1
+
+
+    @Given("^I am on number page$")
+    public void iAmOnNumberPage() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+        //throw new PendingException();
+    }
+
+    @When("^I enter number \"([^\"]*)\"$")
+    public void iEnterNumber(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.id("numb")).sendKeys(arg0);
+        //  throw new PendingException();
+    }
+
+    @And("^press submit$")
+    public void pressSubmit() throws Throwable {
+        driver.findElement(By.className("w3-btn")).click();
+        // throw new PendingException();
+    }
+
+    @Then("^I see error: \"([^\"]*)\"$")
+    public void iSeeError(String message) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+            assertEquals(message, driver.findElement(By.id("ch1_error")).getText());
+        }
+
+
+    @When("^I enter a correct number: \"([^\"]*)\"$")
+    public void iEnterACorrectNumber(String number) throws Throwable {
+        driver.findElement(By.cssSelector(".w3-light-grey")).sendKeys(number);
+    }
+
+
+    @When("^I type number: \"([^\"]*)\"$")
+    public void iTypeNumber(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.id("numb")).sendKeys(arg0);
+    }
+
+    @Then("^I see result: \"([^\"]*)\"$")
+    public void iSeeResult(String result) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals(result, driver.switchTo().alert().getText());
+    }
+
+
+
+    }
+
+
+
+
 
 
 

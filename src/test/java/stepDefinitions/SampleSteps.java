@@ -5,6 +5,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -136,5 +137,43 @@ public class SampleSteps {
     @Then("^I see correct result with text (\\d+)$")
     public void iSeeCorrectResultWithText(int number) throws Throwable {
         assertEquals("You entered number: \"" + String.valueOf(number) + "\"", driver.findElement(By.id("result_number")).getText());
+    }
+
+    @When("^I am on enter a number page$")
+    public void iAmOnEnterANumberPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
+
+    @Then("^I enter a number: (\\d+)$")
+    public void iEnterANumber(int number) throws Throwable {
+        driver.findElement(By.id("numb")).sendKeys(String.valueOf(number));
+    }
+
+    @And("^I click submit button$")
+    public void iClickSubmitButton() throws Throwable {
+        driver.findElement(By.cssSelector(".w3-btn")).click();
+    }
+
+    @And("^I check alert message$")
+    public void iCheckAlertMessage() throws Throwable {
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Square root of 64 is 8.00", alert.getText());
+    }
+
+    @Then("^I click OK in alert message$")
+    public void iClickOKInAlertMessage() throws Throwable {
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+
+    @Then("^I enter an incorrect number \"([^\"]*)\"$")
+    public void iEnterAnIncorrectNumber(String number) throws Throwable {
+        driver.findElement(By.id("numb")).sendKeys(number);
+    }
+
+    @And("^I check error message \"([^\"]*)\"$")
+    public void iCheckErrorMessage(String text) throws Throwable {
+        assertEquals(text, driver.findElement(By.id("ch1_error")).getText());
+
     }
 }

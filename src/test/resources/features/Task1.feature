@@ -2,7 +2,7 @@ Feature: Introduction to cucumber task1
   As a test engineer
   I want to be able to write and execute a scenario outline
 
-  @testtwo
+
   Scenario: Correct number scenario
     When I am on enter a number page
     Then I enter a number: 64
@@ -24,3 +24,4 @@ Feature: Introduction to cucumber task1
       | njhkl  | Please enter a number |
       | 16     | Number is too small   |
       | 101    | Number is too big     |
+      | 3k     | Please enter a number |

@@ -29,7 +29,7 @@ Feature: Introduction to cucumber part 3
       # enter text in text box
     And I click result button
     Then I see correct result with text "<changes>"
-    @bug
+  @bug
     Examples:
       | changes  |
       | good     |
@@ -37,6 +37,7 @@ Feature: Introduction to cucumber part 3
       | the best |
 
     Examples:
-      | changes   |
-      | bad       |
-      | 1000      |
+      | changes |
+      | bad     |
+      | worst   |
+

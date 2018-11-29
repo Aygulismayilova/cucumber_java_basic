@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -76,4 +77,63 @@ public class SampleSteps {
             System.out.println("value is " + e.getValue());
         }
     }
+
+    @And("^I should see menu$")
+    public void iShouldSeeMenu() throws Throwable {
+        assertTrue(driver.findElement(By.className("w3-navbar")).isDisplayed());
+    }
+
+
+    @Given("^I am on action page$")
+    public void iAmOnActionPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/examples/actions");
+    }
+
+    @When("^I enter text$")
+    public void iEnterText() throws Throwable {
+        driver.findElement(By.id("text")).clear();
+        driver.findElement(By.id("text")).sendKeys("Text I entered");
+    }
+
+    @And("^I click the result button$")
+    public void iClickTheResultButton() throws Throwable {
+        driver.findElement(By.id("result_button_text")).click();
+    }
+
+    @Then("^I see correct result text$")
+    public void iSeeCorrectResultText() throws Throwable {
+        assertTrue(driver.findElement(By.id("result_text")).isDisplayed());
+        assertEquals("You entered text: \"Text I entered\"", driver.findElement(By.id("result_text")).getText());
+    }
+
+    @When("^I enter \"([^\"]*)\" text$")
+    public void iEnterText(String text) throws Throwable {
+        driver.findElement(By.id("text")).clear();
+        driver.findElement(By.id("text")).sendKeys(text);
+    }
+
+    @Then("^I see correct result with text \"([^\"]*)\"$")
+    public void iSeeCorrectResultWithText(String text) throws Throwable {
+        assertTrue(driver.findElement(By.id("result_text")).isDisplayed());
+        assertEquals("You entered text: \"" + text + "\"", driver.findElement(By.id("result_text")).getText());
+    }
+
+    @When("^I enter number (\\d+)$")
+    public void iEnterNumber(int num) throws Throwable {
+        driver.findElement(By.id("number")).clear();
+        driver.findElement(By.id("number")).sendKeys(String.valueOf(num));
+    }
+
+    @And("^I click the number result button$")
+    public void iClickTheNumberResultButton() throws Throwable {
+        driver.findElement(By.id("result_button_number")).click();
+    }
+
+    @Then("^I see correct result with number (\\d+)$")
+    public void iSeeCorrectResultWithNumber(int num) throws Throwable {
+        assertTrue(driver.findElement(By.id("result_number")).isDisplayed());
+        assertEquals("You entered number: \"" + num + "\"", driver.findElement(By.id("result_number")).getText());
+    }
+
+
 }

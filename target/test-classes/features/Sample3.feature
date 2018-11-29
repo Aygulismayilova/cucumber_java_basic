@@ -20,3 +20,23 @@ Feature: Introduction to cucumber part 3
     Examples:
       | name | age | message                   |
       | Tom  | 15  | Hello, Tom, you are a kid |
+
+  @test
+  Scenario Outline: a new scenario outline
+    Given I am on action page
+    When I enter "<text>" text
+    And I click the result button
+    Then I see correct result with text "<text>"
+
+  @test1
+    Examples:
+      | text                         |
+      | This is a text               |
+      | This is Sparta               |
+      | Today's date is 29/11/18     |
+
+  @test2
+    Examples:
+      | text                         |
+      | Next week's topic is unknown |
+      | STOP WITH THE DRILLING!      |

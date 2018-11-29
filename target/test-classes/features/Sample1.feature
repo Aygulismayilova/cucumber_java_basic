@@ -7,3 +7,11 @@ Feature: Introduction to cucumber part 1
     When I am on the home page
     Then I should see home page header
     And I should see home page description
+    And I should see menu
+
+  @part2
+  Scenario: my first scenario
+    Given I am on action page
+    When I enter text in Text box
+    And I click the result button
+    Then I see correct result text

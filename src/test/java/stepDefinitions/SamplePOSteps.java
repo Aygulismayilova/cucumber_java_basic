@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -53,5 +54,16 @@ public class SamplePOSteps {
     public void iEnterValues(Map<String, String> valuesToEnter) throws Throwable {
         agePage.enterName(valuesToEnter.get("name"));
         agePage.enterAge(valuesToEnter.get("age"));
+    }
+
+    @When("^I enter text:\"([^\"]*)\"$")
+    public void iEnterText(String arg0) throws Throwable {
+        driver.findElement(By.id("text")).clear();
+        driver.findElement(By.id("text")).sendKeys(test);
+    }
+
+    @Then("^I see correct result with message:\"([^\"]*)\"$")
+    public void iSeeCorrectResultWithMessage(String arg0) throws Throwable {
+       // assertEquals("You entered number: \"" + number + "\"", driver.findElement(By.cssSelector("#result_number")).getText());
     }
 }

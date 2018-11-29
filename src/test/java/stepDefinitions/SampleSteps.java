@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class SampleSteps {
@@ -63,7 +64,7 @@ public class SampleSteps {
         driver.findElement(By.id("result_button_number")).click();
     }
 
-    @Then("^I see message: \"(.*)\"$")
+    @Then("^I see message1: \"(.*)\"$")
     public void iSeeMessage(String message) throws Throwable {
         assertEquals(message, driver.findElement(By.id("message")).getText());
     }
@@ -118,8 +119,8 @@ public class SampleSteps {
 
     @When("^I enter number (\\d+)$")
     public void iEnterNumber(int age) throws Throwable {
-        driver.findElement(By.id("number")).clear();
-        driver.findElement(By.id("number")).sendKeys(String.valueOf(age));
+        driver.findElement(By.id("numb")).clear();
+        driver.findElement(By.id("numb")).sendKeys(String.valueOf(age));
     }
 
     @Then("^I see correct result with text (\\d+)$")
@@ -133,9 +134,36 @@ public class SampleSteps {
         driver.findElement(By.id("result_button_number")).click();
     }
 
-    @When("^I enter <changes> text$")
-    public void iEnterChangesText() throws Throwable {
-        // Write code here that turns the phrase above into concrete actions
-        throw new PendingException();
+
+    @Given("^I am on number page$")
+    public void iAmOnNumberPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
+
+    @And("^I click submit button$")
+    public void iClickSubmitButton() throws Throwable {
+        driver.findElement(By.cssSelector(".w3-btn")).click();
+    }
+
+    @Then("^I see message \"([^\"]*)\"$")
+    public void iSeeMessageError(String message) throws Throwable {
+        assertEquals( message, driver.findElement(By.id("ch1_error")).getText());
+    }
+
+    @When("^I enter number: \"([^\"]*)\"$")
+    public void iEnterNumberNumber(String number) throws Throwable {
+        driver.findElement(By.id("numb")).clear();
+        driver.findElement(By.id("numb")).sendKeys(number);
+    }
+
+    @Then("^I see accept alarm message$")
+    public void iSeeAcceptAlarmMessage() throws Throwable {
+       driver.switchTo().alert().accept();
+    }
+
+
+    @Then("^I see correct \"([^\"]*)\"$")
+    public void iSeeCorrectResult(String result) throws Throwable {
+        assertEquals(result, driver.switchTo().alert().getText());
     }
 }

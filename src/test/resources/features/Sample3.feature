@@ -20,3 +20,15 @@ Feature: Introduction to cucumber part 3
     Examples:
       | name | age | message                   |
       | Tom  | 15  | Hello, Tom, you are a kid |
+
+@test
+  Scenario Outline: my third scenario
+    Given I am on action page
+    When I enter "<bla-bla>" text
+    And I click the result button
+    Then I see correct result  with text "<bla-bla>"
+
+    Examples:
+      | bla-bla |
+      |  text   |
+      |  asdsa  |

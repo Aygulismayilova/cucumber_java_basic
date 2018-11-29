@@ -1,7 +1,8 @@
-@regression
+
 Feature: Introduction to cucumber part 2
   As a test engineer
   I want to be able to write and execute a scenario with parameters
+
 
   Scenario: a new scenario 1 with regex
     Given I am on age page
@@ -16,3 +17,17 @@ Feature: Introduction to cucumber part 2
     And I enter age: 61
     And I click submit age
     Then I see message: "Hello, Bob, you are an adult"
+
+
+  Scenario: my first scenario
+    Given I am on action page
+    When I enter "bla-bla" text
+    And I click the result button
+    Then I see correct result  with text "bla-bla"
+
+
+  Scenario: my second scenario
+    Given I am on action page
+    When I enter number "5"
+    And I click the result number button
+    Then I see correct result  with text the number "5"

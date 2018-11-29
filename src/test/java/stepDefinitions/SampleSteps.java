@@ -1,9 +1,11 @@
 package stepDefinitions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -75,5 +77,116 @@ public class SampleSteps {
             System.out.println("key is " + e.getKey());
             System.out.println("value is " + e.getValue());
         }
+    }
+
+    @And("^I should see menu$")
+    public void iShouldSeeMenu() throws Throwable {
+        assertTrue(driver.findElement(By.className("w3-navbar")).isDisplayed());
+    }
+
+    @Given("^I am ont action page$")
+    public void iAmOntActionPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/examples/actions");
+//        throw new PendingException();
+    }
+
+
+    //     throw new PendingException();
+
+
+    @And("^I click th result button$")
+    public void iClickThResultButton() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.id("result_button_text")).click();
+        //    throw new PendingException();
+    }
+
+
+    @Given("^I am on action page$")
+    public void iAmOnActionPage() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.get("https://kristinek.github.io/site/examples/actions");
+//        throw new PendingException();
+    }
+
+
+
+    @And("^I click the result button$")
+    public void iClickTheResultButton() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.id("result_button_text")).click();
+//        throw new PendingException();
+    }
+
+
+
+    @Then("^I see correct result with text: \"([^\"]*)\"$")
+    public void iSeeCorrectResultWithText(String text) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals(text, driver.findElement(By.id("result_text")).getText());
+      //  throw new PendingException();
+    }
+
+    @Then("^I see correct result with text: \"([^\"]*)\"Text\"([^\"]*)\"$")
+    public void iSeeCorrectResultWithTextText(String arg0, String arg1) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals("You entered text: \"Text\"", driver.findElement(By.id("result_text")).getText());
+        //throw new PendingException();
+    }
+
+
+
+    @Then("^I see correct result text: \"([^\"]*)\"$")
+    public void iSeeCorrectResultText(String arg0) throws Throwable {
+        assertEquals("You entered text: \"" + arg0 + "\"", driver.findElement(By.id("result_text")).getText());
+      //  throw new PendingException();
+    }
+
+    @When("^I enter text \"([^\"]*)\"$")
+    public void iEnterText(String arg0) throws Throwable {
+        driver.findElement(By.id("text")).clear();
+        driver.findElement(By.id("text")).sendKeys(arg0);
+      //  throw new PendingException();
+    }
+
+    @Given("^I am on number page$")
+    public void iAmOnNumberPage() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+       //throw new PendingException();
+    }
+
+    @When("^I enter number \"([^\"]*)\"$")
+    public void iEnterNumber(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.id("numb")).sendKeys(arg0);
+      //  throw new PendingException();
+    }
+
+    @And("^press submit$")
+    public void pressSubmit() throws Throwable {
+        driver.findElement(By.className("w3-btn")).click();
+       // throw new PendingException();
+    }
+
+
+
+    @Then("^error message should appear \"([^\"]*)\"$")
+    public void errorMessageShouldAppear(String arg0) throws Throwable {
+       assertEquals(arg0,driver.findElement(By.id("ch1_error")).getText());
+      //  throw new PendingException();
+    }
+
+    @When("^I enter number (\\d+)$")
+    public void iEnterNumber(int arg0) throws Throwable {
+        driver.findElement(By.id("numb")).sendKeys(String.valueOf(arg0));
+       // throw new PendingException();
+    }
+
+    @Then("^alert Message should appear \"([^\"]*)\"$")
+    public void alertMessageShouldAppear(String arg0) throws Throwable {
+        Alert firstAlert = driver.switchTo().alert();
+        assertEquals(arg0,firstAlert.getText());
+        //throw new PendingException();
     }
 }

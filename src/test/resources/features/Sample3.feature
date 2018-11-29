@@ -20,3 +20,24 @@ Feature: Introduction to cucumber part 3
     Examples:
       | name | age | message                   |
       | Tom  | 15  | Hello, Tom, you are a kid |
+
+  @testone
+  Scenario Outline: My third scenario
+    Given I am on action page
+      # go to https://kristinek.github.io/site/examples/actions
+    When  I enter "<changes>" text
+      # enter text in text box
+    And I click result button
+    Then I see correct result with text "<changes>"
+  @bug
+    Examples:
+      | changes  |
+      | good     |
+      | 70       |
+      | the best |
+
+    Examples:
+      | changes |
+      | bad     |
+      | worst   |
+

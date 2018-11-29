@@ -25,12 +25,12 @@ public class SampleSteps {
         this.driver = Hooks.driver;
     }
 
-    @Given("^I am on the age page$")
+    @Given("^I am on the home page$")
     public void iAmOnTheHomePage() throws Throwable {
         driver.get("https://kristinek.github.io/site");
     }
 
-    @Then("^I should see the age page header$")
+    @Then("^I should see the home page header$")
     public void iShouldSeeHomePageHeader() throws Throwable {
         assertEquals("This is a home page",
                 driver.findElement(By.id("h1")).getText());
@@ -140,6 +140,8 @@ public class SampleSteps {
         // Write code here that turns the phrase above into concrete actions
         assertEquals("You entered name: \"" + name + "\"", driver.findElement(By.cssSelector("#result_name")).getText());
     }
+
+
 }
 
 

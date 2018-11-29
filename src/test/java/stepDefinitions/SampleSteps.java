@@ -5,6 +5,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -132,5 +133,33 @@ public class SampleSteps {
     @Then("^I see correct result  with text the number \"([^\"]*)\"$")
     public void iSeeCorrectResultWithTextTheNumber(String numberText) throws Throwable {
         assertEquals(numberText, driver.findElement(By.cssSelector("#number")).getAttribute("value"));
+    }
+
+    @Given("^I am on action page(\\d+)$")
+    public void iAmOnActionPage(int arg0) throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
+
+    @When("^I tap \"([^\"]*)\" number$")
+    public void iTapNumber(String number) throws Throwable {
+        driver.findElement(By.cssSelector("#numb")).sendKeys(number);
+    }
+
+    @And("^I click the submit button$")
+    public void iClickTheSubmitButton() throws Throwable {
+        driver.findElement(By.cssSelector(".w3-btn.w3-orange.w3-margin")).click();
+    }
+
+
+    @Then("^I see correct resultaaa  with text \"([^\"]*)\"$")
+    public void iSeeCorrectResultaaaWithText(String ErrorText) throws Throwable {
+        assertEquals(ErrorText, driver.findElement(By.id("ch1_error")).getText());
+    }
+
+    @Then("^Accept the alert$")
+    public void acceptTheAlert() throws Throwable {
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+        assertEquals("", driver.findElement(By.id("ch1_error")).getText());
     }
 }

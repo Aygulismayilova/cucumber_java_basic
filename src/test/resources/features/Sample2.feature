@@ -18,7 +18,6 @@ Feature: Introduction to cucumber part 2
     And I click submit age
     Then I see message: "Hello, Bob, you are an adult"
 
-
   Scenario: my first scenario
     Given I am on action page
     When I enter "bla-bla" text

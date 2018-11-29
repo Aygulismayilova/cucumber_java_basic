@@ -149,6 +149,10 @@ public class SampleSteps {
       //  throw new PendingException();
     }
 
+
+    //Task1 steps
+
+
     @Given("^I am on number page$")
     public void iAmOnNumberPage() throws Throwable {
         // Write code here that turns the phrase above into concrete actions

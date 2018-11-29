@@ -10,23 +10,9 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:cucumber-report/html-report",
                 "junit:cucumber-report/junit-report.xml",
                 "json:cucumber-report/json-report.json"},
-//        tags = {"~@not_working", "~@bug"},
-        tags = {"@task1"}, ///// ~ <- not open
-        //tags = {"@debug1, @smoke1"},
 
-        //  1 = {"@smokeTest"},
-//          2 = {"@regressionTest"}
-//          3 = {"@sanityTest, @smokeTest"}
-//          4 = {"@sanityTest","@smokeTest"}
-//          5 = {"@regressionTest","~@sanityTest"}
+        tags = {"@task1"},
 
-
-
-
-
-//        tags = {"~@not_working", "@part1", "~@bug"}, // => NOT @not_working AND @part1 AND NOT @bug
-//        tags = {"@part3", "@regression"}, //=> @part3 AND @regression
-//        tags = {"@part3, @regression"}, //=> @part3 OR @regression
         glue = {"stepDefinitions"}
 )
 public class CucumberRunner {

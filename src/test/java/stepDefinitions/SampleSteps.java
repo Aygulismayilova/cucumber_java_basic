@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -24,15 +25,15 @@ public class SampleSteps {
         this.driver = Hooks.driver;
     }
 
-    @Given("^I am on the home page$")
+    @Given("^I am on the age page$")
     public void iAmOnTheHomePage() throws Throwable {
         driver.get("https://kristinek.github.io/site");
     }
 
-    @Then("^I should see home page header$")
+    @Then("^I should see the age page header$")
     public void iShouldSeeHomePageHeader() throws Throwable {
         assertEquals("This is a home page",
-                driver.findElement(By.cssSelector("h1")).getText());
+                driver.findElement(By.id("h1")).getText());
     }
 
     @And("^I should see home page description$")
@@ -75,5 +76,81 @@ public class SampleSteps {
             System.out.println("key is " + e.getKey());
             System.out.println("value is " + e.getValue());
         }
+
+    }
+
+
+    @And("^I should see menu$")
+    public void iShouldSeeMenu() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertTrue(driver.findElement(By.className("w3-navbar")).isDisplayed());
+    }
+
+    @Given("^I am on action page$")
+    public void iAmOnActionPage() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.get("https://kristinek.github.io/site/examples/actions");
+    }
+    @When("^I enter \"([^\"]*)\" text$")
+    public void iEnterText(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        String textInput = "asdf";
+        WebElement textBox =  driver.findElement(By.id("text"));
+        textBox.clear();
+        textBox.sendKeys(textInput);
+
+    }
+    @And("^I click the result button$")
+    public void iClickTheResultButton() throws Throwable {
+        driver.findElement(By.id("result_button_text")).click();
+    }
+    @Then("^I see correct result with text \"([^\"]*)\"$")
+    public void iSeeCorrectResultWithText(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        String text = "You entered text: \"asdf\"";
+        assertEquals(text, driver.findElement(By.id("result_text")).getText());
+    }
+
+
+
+
+
+    @When("^I enter number (\\d+)$")
+    public void iEnterNumber(int number) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.id("text")).clear();
+        driver.findElement(By.id("text")).sendKeys(String.valueOf(number));
+        }
+
+
+    @And("^I click the result number button$")
+    public void iClickTheResultNumberButton() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.id("result_button_number")).click();
+    }
+
+    @Then("^I see correct result with text (\\d+)$")
+    public void iSeeCorrectResultWithText(int number) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals("You entered number: \"" + number + "\"", driver.findElement(By.cssSelector("#result_number")).getText());
+    }
+
+    @Then("^I see the correct result with text \"([^\"]*)\"$")
+    public void iSeeTheCorrectResultWithText(String name) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals("You entered name: \"" + name + "\"", driver.findElement(By.cssSelector("#result_name")).getText());
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -30,10 +30,10 @@ Feature: Introduction to cucumber part 3
 
   @test1
     Examples:
-      | text                         |
-      | This is a text               |
-      | This is Sparta               |
-      | Today's date is 29/11/18     |
+      | text                     |
+      | This is a text           |
+      | This is Sparta           |
+      | Today's date is 29/11/18 |
 
   @test2
     Examples:

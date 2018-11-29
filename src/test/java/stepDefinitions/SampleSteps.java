@@ -5,6 +5,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -135,5 +136,39 @@ public class SampleSteps {
         assertEquals("You entered number: \"" + num + "\"", driver.findElement(By.id("result_number")).getText());
     }
 
+    //Task 1 Methods
+    @Given("^I am on enter a number page$")
+    public void iAmOnEnterANumberPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
 
+    @When("^I enter a number: \"([^\"]*)\"$")
+    public void iEnterANumber(String num) throws Throwable {
+        driver.findElement(By.id("numb")).clear();
+        driver.findElement(By.id("numb")).sendKeys(num);
+    }
+
+    @And("^I click submit number$")
+    public void iClickSubmitNumber() throws Throwable {
+        driver.findElement(By.className("w3-orange")).click();
+    }
+
+    @Then("^I see an error: \"([^\"]*)\"$")
+    public void iSeeAnError(String error) throws Throwable {
+        assertTrue(driver.findElement(By.id("ch1_error")).isDisplayed());
+        assertEquals(error, driver.findElement(By.id("ch1_error")).getText());
+    }
+
+    @Then("^I see popup message$")
+    public void iSeePopupMessage() throws Throwable {
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Square root of 64 is 8.00", alert.getText());
+    }
+
+    @And("^I close the popup$")
+    public void iCloseThePopup() throws Throwable {
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+    }
+    //End of Task 1 Methods
 }

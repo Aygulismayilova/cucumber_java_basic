@@ -76,4 +76,61 @@ public class SampleSteps {
             System.out.println("value is " + e.getValue());
         }
     }
+
+    @And("^I shoul see menu$")
+    public void iShoulSeeMenu() throws Throwable {
+        assertTrue(driver.findElement(By.cssSelector(".w3-navbar")).isDisplayed());
+    }
+
+    @Given("^I am on action page$")
+    public void iAmOnActionPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/examples/actions");
+    }
+
+    @When("^I enter text$")
+    public void iEnterText() throws Throwable {
+        WebElement text =  driver.findElement(By.cssSelector("#text"));
+        text.clear();
+        text.sendKeys("bla-bla");
+    }
+
+    @And("^I click the result button$")
+    public void iClickTheResultButton() throws Throwable {
+        driver.findElement(By.cssSelector("#result_button_text")).click();
+    }
+
+    @Then("^I see correct result text$")
+    public void iSeeCorrectResultText() throws Throwable {
+        assertEquals("You entered text: \"bla-bla\"", driver.findElement(By.cssSelector("#result_text")).getText());
+    }
+
+    @When("^I enter \"([^\"]*)\" text$")
+    public void iEnterText(String text) throws Throwable {
+        driver.findElement(By.cssSelector("#text")).clear();
+        driver.findElement(By.cssSelector("#text")).sendKeys(text);
+    }
+
+    @Then("^I see correct result  with text \"([^\"]*)\"$")
+    public void iSeeCorrectResultWithText(String text) throws Throwable {
+        assertEquals(text, driver.findElement(By.cssSelector("#text")).getAttribute("value"));
+    }
+
+
+    @When("^I enter number \"([^\"]*)\"$")
+    public void iEnterNumber(String number) throws Throwable {
+        driver.findElement(By.cssSelector("#number")).clear();
+        driver.findElement(By.cssSelector("#number")).sendKeys(number);
+
+    }
+
+    @And("^I click the result number button$")
+    public void iClickTheResultNumberButton() throws Throwable {
+        driver.findElement(By.cssSelector("#result_button_number")).click();
+    }
+
+    @Then("^I see correct result  with text the number \"([^\"]*)\"$")
+    public void iSeeCorrectResultWithTextTheNumber(String numberText) throws Throwable {
+        assertEquals(numberText, driver.findElement(By.cssSelector("#number")).getAttribute("value"));
+    }
 }
+

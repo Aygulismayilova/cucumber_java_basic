@@ -20,3 +20,16 @@ Feature: Introduction to cucumber part 3
     Examples:
       | name | age | message                   |
       | Tom  | 15  | Hello, Tom, you are a kid |
+
+    @debug
+  Scenario: my first scenario
+    Given I am on action page
+    When I enter "<bla-bla>" text
+    And I click the result button
+    Then I see correct result  with text "<bla-bla>"
+
+    @not_working
+    Examples:
+    | bla-bla |
+    |  text   |
+    | bla     |

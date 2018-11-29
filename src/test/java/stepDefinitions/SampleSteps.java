@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -75,5 +76,61 @@ public class SampleSteps {
             System.out.println("key is " + e.getKey());
             System.out.println("value is " + e.getValue());
         }
+    }
+
+    @And("^I should see menu$")
+    public void iShouldSeeMenu() throws Throwable {
+        driver.findElement(By.className("w3-navbar")).isDisplayed();
+    }
+
+    @Given("^I am on action page$")
+    public void iAmOnActionPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/examples/actions");
+    }
+
+    @When("^I enter text$")
+    public void iEnterText() throws Throwable {
+        driver.get("https://kristinek.github.io/site/examples/actions");
+        throw new PendingException();
+    }
+
+    @And("^I click the result button$")
+    public void iClickTheResultButton() throws Throwable {
+        driver.findElement(By.id("result_button_text_area")).click();
+    }
+
+    @Then("^I see correct result text$")
+    public void iSeeCorrectResultText() throws Throwable {
+        String text = "You entered text area: \"Cucumber\"";
+        assertEquals(text, driver.findElement(By.xpath("//*[@id=\"result_text_area\"]")).getText());
+    }
+
+    @When("^I enter text into text field$")
+    public void iEnterTextIntoTextField() throws Throwable {
+        WebElement enterText = driver.findElement(By.id("text_area"));
+        enterText.clear();
+        enterText.sendKeys("Cucumber");
+    }
+
+    @When("^I enter text \"([^\"]*)\" into text field$")
+    public void iEnterIntoTextField(String text) throws Throwable {
+        driver.findElement(By.id("text_area")).clear();
+        driver.findElement(By.id("text_area")).sendKeys(text);
+    }
+
+    @Then("^I see correct result text with text \"([^\"]*)\"$")
+    public void iSeeCorrectResultTextWithText(String resultText) throws Throwable {
+        assertEquals("You entered text area: \"" + resultText + "\"" , driver.findElement(By.xpath("//*[@id=\"result_text_area\"]")).getText());
+    }
+
+    @When("^I enter number (\\d+)$")
+    public void iEnterNumber(int number) throws Throwable {
+        driver.findElement(By.id("text_area")).clear();
+        driver.findElement(By.id("text_area")).sendKeys(String.valueOf(number));
+    }
+
+    @Then("^I see correct result text with text (\\d+)$")
+    public void iSeeCorrectResultTextWithText(int resultNumber) throws Throwable {
+        assertEquals("You entered text area: \"" + resultNumber + "\"", driver.findElement(By.xpath("//*[@id=\"result_text_area\"]")).getText());
     }
 }

@@ -1,9 +1,11 @@
 package stepDefinitions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -62,7 +64,7 @@ public class SampleSteps {
         driver.findElement(By.id("submit")).click();
     }
 
-    @Then("^I see message: \"(.*)\"$")
+    @Then("^I see message: \"([^\"]*)\"$")
     public void iSeeMessage(String message) throws Throwable {
         assertEquals(message, driver.findElement(By.id("message")).getText());
     }
@@ -75,5 +77,105 @@ public class SampleSteps {
             System.out.println("key is " + e.getKey());
             System.out.println("value is " + e.getValue());
         }
+    }
+
+    @And("^I should see menu$")
+    public void iShouldSeeMenu() throws Throwable {
+        assertTrue(driver.findElement(By.className("w3-navbar")).isDisplayed());
+    }
+
+    @Given("^I am on action page$")
+    public void iAmOnActionPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/examples/actions");
+    }
+
+    @When("^I enter text$")
+    public void iEnterText() throws Throwable {
+        String textInput = "asdf";
+        WebElement textBox =  driver.findElement(By.id("text"));
+        textBox.clear();
+        textBox.sendKeys(textInput);
+    }
+
+    @And("^I click the result button$")
+    public void iClickTheResultButton() throws Throwable {
+        driver.findElement(By.id("result_button_text")).click();
+    }
+
+    @Then("^I see correct result text$")
+    public void iSeeCorrectResultText() throws Throwable {
+        String text = "You entered text: \"asdf\"";
+        assertEquals(text, driver.findElement(By.id("result_text")).getText());
+    }
+
+    @When("^I enter \"([^\"]*)\" text$")
+    public void iEnterText(String text) throws Throwable {
+        driver.findElement(By.id("text")).clear();
+        driver.findElement(By.id("text")).sendKeys(text);
+    }
+
+    @Then("^I see correct result with text \"([^\"]*)\"$")
+    public void iSeeCorrectResultWithText(String text) throws Throwable {
+        assertEquals("You entered text: \"" + text + "\"", driver.findElement(By.cssSelector("#result_text")).getText());
+    }
+
+    @When("^I enter number (\\d+)$")
+    public void iEnterNumber(int number) throws Throwable {
+        driver.findElement(By.id("text")).clear();
+        driver.findElement(By.id("text")).sendKeys(String.valueOf(number));
+    }
+
+    @And("^I click the result number button$")
+    public void iClickTheResultNumberButton() throws Throwable {
+        driver.findElement(By.id("result_button_number")).click();
+    }
+
+    @Then("^I see correct result with text (\\d+)$")
+    public void iSeeCorrectResultWithText(int number) throws Throwable {
+        assertEquals("You entered number: \"" + number + "\"", driver.findElement(By.cssSelector("#result_number")).getText());
+    }
+
+    //(--------------------//-------------------------))
+
+    @Given("^I am on enter a number page$")
+    public void iAmOnEnterANumberPage() throws Throwable {
+
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
+
+    @When("^I enter a number: \"([^\"]*)\"$")
+    public void iEnterANumber(String num) throws Throwable {
+
+        driver.findElement(By.xpath("//*[@id=\"numb\"]")).clear();
+        driver.findElement(By.xpath("//*[@id=\"numb\"]")).sendKeys(num);
+    }
+
+    @And("^I click submit number$")
+    public void iClickSubmitNumber() throws Throwable {
+
+        driver.findElement(By.className("w3-orange")).click();
+    }
+
+    @Then("^I see an error: \"([^\"]*)\"$")
+        public void iSeeAnError(String error) throws Throwable {
+
+        assertTrue(driver.findElement(By.xpath("//*[@id=\"ch1_error\"]")).isDisplayed());
+        assertEquals(driver.findElement(By.xpath("//*[@id=\"ch1_error\"]")).getText(), "Please enter a number");
+
+    }
+
+    @Then("^I see popup message$")
+    public void iSeePopupMessage() throws Throwable {
+
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Square root of 64 is 8.00", alert.getText());
+    }
+
+    @And("^I close the popup$")
+    public void iCloseThePopup() throws Throwable {
+
+        Alert alert = driver.switchTo().alert();
+        alert.accept();
+
     }
 }

@@ -31,5 +31,3 @@ Feature: Introduction to cucumber part 1
     # test(s) with "@regressionTest", but not "@smokeTest"
   # tags = {"@regressionTest", "~@smokeTest"}
 
-
-

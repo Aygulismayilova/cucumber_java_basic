@@ -14,56 +14,47 @@ import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
-public class SamplePOSteps {
-    private WebDriver driver;
-    static AgePage agePage;
-    static AgeSubmittedPage ageSubmittedPage;
 
-    public SamplePOSteps() {
-        this.driver = Hooks.driver;
-        agePage = PageFactory.initElements(Hooks.driver, AgePage.class);
-        ageSubmittedPage = PageFactory.initElements(Hooks.driver, AgeSubmittedPage.class);
-    }
+    public class SamplePOSteps {
+        private WebDriver driver;
+        static AgePage agePage;
+        static AgeSubmittedPage ageSubmittedPage;
 
-    @When("^I enter name: \"([^\"]*)\" using PO$")
-    public void iEnterName(String name) throws Throwable {
-        agePage.enterName(name);
-    }
+        public SamplePOSteps() {
+            this.driver = Hooks.driver;
+            agePage = PageFactory.initElements(Hooks.driver, AgePage.class);
+            ageSubmittedPage = PageFactory.initElements(Hooks.driver, AgeSubmittedPage.class);
+        }
 
-    @And("^I enter age: (\\d+) using PO$")
-    public void iEnterAge(int age) throws Throwable {
-        agePage.enterAge(age);
-    }
+        @When("^I enter name: \"([^\"]*)\" using PO$")
+        public void iEnterName(String name) throws Throwable {
+            agePage.enterName(name);
+        }
 
-    @Given("^I (?:am on|open) age page using PO$")
-    public void iAmOnAgePage() throws Throwable {
-        driver.get(agePage.getPageUrl());
-    }
+        @And("^I enter age: (\\d+) using PO$")
+        public void iEnterAge(int age) throws Throwable {
+            agePage.enterAge(age);
+        }
 
-    @And("^I click submit age using PO$")
-    public void iClickSubmitAge() throws Throwable {
-        agePage.clickSubmit();
-    }
+        @Given("^I (?:am on|open) age page using PO$")
+        public void iAmOnAgePage() throws Throwable {
+            driver.get(agePage.getPageUrl());
+        }
 
-    @Then("^I see message: \"(.*)\" using PO$")
-    public void iSeeMessage(String message) throws Throwable {
-        ageSubmittedPage.checkMessageText(message);
-    }
+        @And("^I click submit age using PO$")
+        public void iClickSubmitAge() throws Throwable {
+            agePage.clickSubmit();
+        }
 
-    @When("^I enter values using PO:$")
-    public void iEnterValues(Map<String, String> valuesToEnter) throws Throwable {
-        agePage.enterName(valuesToEnter.get("name"));
-        agePage.enterAge(valuesToEnter.get("age"));
-    }
+        @Then("^I see message: \"(.*)\" using PO$")
+        public void iSeeMessage(String message) throws Throwable {
+            ageSubmittedPage.checkMessageText(message);
+        }
 
-    @When("^I enter text:\"([^\"]*)\"$")
-    public void iEnterText(String arg0) throws Throwable {
-        driver.findElement(By.id("text")).clear();
-        driver.findElement(By.id("text")).sendKeys(test);
-    }
+        @When("^I enter values using PO:$")
+        public void iEnterValues(Map<String, String> valuesToEnter) throws Throwable {
+            agePage.enterName(valuesToEnter.get("name"));
+            agePage.enterAge(valuesToEnter.get("age"));
+        }
 
-    @Then("^I see correct result with message:\"([^\"]*)\"$")
-    public void iSeeCorrectResultWithMessage(String arg0) throws Throwable {
-       // assertEquals("You entered number: \"" + number + "\"", driver.findElement(By.cssSelector("#result_number")).getText());
     }
-}

@@ -5,6 +5,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -147,5 +148,39 @@ driver.findElement(By.id("text"));
     public void iClickTheResultNumberButton() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         driver.findElement(By.id("result_button_number")).click();
+    }
+
+    @Given("^I am on new action page$")
+    public void iAmOnNewActionPage() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
+
+    @When("^I enter number \"([^\"]*)\"$")
+    public void iEnterNumber(String string) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.id("numb")).clear();
+
+        driver.findElement(By.id("numb")).sendKeys(string);
+    }
+
+    @And("^I click the submit button$")
+    public void iClickTheSubmitButton() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.cssSelector("body > div.w3-row > div > div > div.w3-container.w3-card-4 > button")).click();
+
+    }
+
+    @Then("^I see my correct result text \"([^\"]*)\"$")
+    public void iSeeMyCorrectResultText(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertTrue( driver.findElement(By.id("ch1_error")).isDisplayed());
+    }
+
+    @Then("^I see  the exact error message$")
+    public void iSeeTheExactErrorMessage() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        Alert alert = driver.switchTo().alert();
+        assertEquals("Square root of 64 is 8.00", alert.getText());
     }
 }

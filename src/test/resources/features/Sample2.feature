@@ -26,7 +26,6 @@ Feature: Introduction to cucumber part 2
     And I click the result button
     Then I see correct result text with text "text"
 
-  @bug #"@test3,~@bug"
 
   @test
   Scenario: my second scenario
@@ -41,7 +40,7 @@ Feature: Introduction to cucumber part 2
     When I enter text "<enterText>" into text field
     And I click the result button
     Then I see correct result text with text "<text>"
-  @bug #"@test3,~@bug"
+  @bug
     Examples:
       | enterText | text |
       | Ann       | Ann  |
@@ -58,7 +57,6 @@ Feature: Introduction to cucumber part 2
     And I click the result button
     Then I see correct result text with text <resultNumber>
 
-  @working
     Examples:
       | number | resultNumber |
       | 5      | 5            |

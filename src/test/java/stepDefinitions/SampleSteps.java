@@ -5,6 +5,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -120,17 +121,58 @@ public class SampleSteps {
 
     @Then("^I see correct result text with text \"([^\"]*)\"$")
     public void iSeeCorrectResultTextWithText(String resultText) throws Throwable {
-        assertEquals("You entered text area: \"" + resultText + "\"" , driver.findElement(By.xpath("//*[@id=\"result_text_area\"]")).getText());
+        assertEquals("You entered text area: \"" + resultText + "\"", driver.findElement(By.xpath("//*[@id=\"result_text_area\"]")).getText());
     }
 
     @When("^I enter number (\\d+)$")
     public void iEnterNumber(int number) throws Throwable {
-        driver.findElement(By.id("text_area")).clear();
-        driver.findElement(By.id("text_area")).sendKeys(String.valueOf(number));
+        driver.findElement(By.id("numb")).clear();
+        driver.findElement(By.id("numb")).sendKeys(String.valueOf(number));
     }
 
     @Then("^I see correct result text with text (\\d+)$")
     public void iSeeCorrectResultTextWithText(int resultNumber) throws Throwable {
         assertEquals("You entered text area: \"" + resultNumber + "\"", driver.findElement(By.xpath("//*[@id=\"result_text_area\"]")).getText());
+    }
+
+    @When("^I enter number <number>$")
+    public void iEnterNumberNumber1(int number) throws Throwable {
+        driver.findElement(By.id("text_area")).clear();
+        driver.findElement(By.id("text_area")).sendKeys(String.valueOf(number));
+    }
+
+    @Then("^I see correct result text with text <resultNumber>$")
+    public void iSeeCorrectResultTextWithTextResultNumber(int resultNumber) throws Throwable {
+        assertEquals("You entered text area: \"" + resultNumber + "\"", driver.findElement(By.xpath("//*[@id=\"result_text_area\"]")).getText());
+
+    }
+
+    @Given("^I am on enter a number page$")
+    public void iAmOnEnterANumberPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
+
+    @When("^I enter number \"([^\"]*)\"$")
+    public void iEnterNumber(String myNumber) throws Throwable {
+        driver.findElement(By.id("numb")).clear();
+        driver.findElement(By.id("numb")).sendKeys(String.valueOf(myNumber));
+    }
+
+    @And("^I click the submit button$")
+    public void iClickTheSubmitButton() throws Throwable {
+        driver.findElement(By.className("w3-orange")).click();
+    }
+
+
+    @Then("^I see error message text \"([^\"]*)\"$")
+    public void iSeeErrorMessageText(String errorMessage) throws Throwable {
+        assertEquals(errorMessage, driver.findElement(By.className("error")).getText());
+    }
+
+
+    @Then("^I see result is \"([^\"]*)\"$")
+    public void iSeeResultIs(String correctMessage) throws Throwable {
+        Alert alert = driver.switchTo().alert();
+        assertEquals(correctMessage, alert.getText());
     }
 }

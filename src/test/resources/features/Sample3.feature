@@ -21,15 +21,13 @@ Feature: Introduction to cucumber part 3
       | name | age | message                   |
       | Tom  | 15  | Hello, Tom, you are a kid |
 
-    @debug
-  Scenario: my first scenario
+    @test2
+  Scenario Outline: my only scenario outline
     Given I am on action page
     When I enter "<bla-bla>" text
     And I click the result button
     Then I see correct result  with text "<bla-bla>"
-
-    @not_working
     Examples:
     | bla-bla |
     |  text   |
-    | bla     |
+    |  tom   |

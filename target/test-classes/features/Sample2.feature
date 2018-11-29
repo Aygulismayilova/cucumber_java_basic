@@ -10,6 +10,8 @@ Feature: Introduction to cucumber part 2
     And I click submit age
     Then I see message: "Hello, Ann, you are a kid"
 
+
+    @part1
   Scenario: a new scenario 2 with regex
     Given I open age page
     When I enter name: "Bob"

@@ -19,6 +19,14 @@ Feature: Introduction to cucumber part 2
     And I click submit age
     Then I see message: "Hello, Bob, you are an adult"
 
+  @test
+  Scenario: my second scenario
+    Given I am on action page
+    When I enter text "enterText" into text field
+    And I click the result button
+    Then I see correct result text with text "text"
+
+  @bug #"@test3,~@bug"
 
   @test
   Scenario: my second scenario
@@ -33,7 +41,7 @@ Feature: Introduction to cucumber part 2
     When I enter text "<enterText>" into text field
     And I click the result button
     Then I see correct result text with text "<text>"
-    @bug #"@test3,~@bug"
+  @bug #"@test3,~@bug"
     Examples:
       | enterText | text |
       | Ann       | Ann  |
@@ -46,9 +54,9 @@ Feature: Introduction to cucumber part 2
   @test4
   Scenario Outline: my third scenario
     Given I am on action page
-    When I enter number "<number>"
+    When I enter number <number>
     And I click the result button
-    Then I see correct result text with text "<resultNumber>"
+    Then I see correct result text with text <resultNumber>
 
   @working
     Examples:

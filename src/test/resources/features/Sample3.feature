@@ -20,3 +20,22 @@ Feature: Introduction to cucumber part 3
     Examples:
       | name | age | message                   |
       | Tom  | 15  | Hello, Tom, you are a kid |
+
+  @testThree
+  Scenario Outline: My third scenario
+    Given I am on actions page
+    When I enter "<changes>" text
+    And I click the result button
+    Then I see correct result with text "<changes>"
+  @bug
+    Examples:
+      | changes |
+      | asdf    |
+      | qwer    |
+
+    Examples:
+      | changes |
+      | zxcv    |
+      | 777     |
+
+

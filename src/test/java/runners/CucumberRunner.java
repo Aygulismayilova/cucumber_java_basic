@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
                 "junit:cucumber-report/junit-report.xml",
                 "json:cucumber-report/json-report.json"},
        //tags = {"debug1", "smoke1"},
-         tags = {"@bug"},
+        tags = {"@test123"},
 //        tags = {"~@not_working", "@part1", "~@bug"}, // => NOT @not_working AND @part1 AND NOT @bug
 //        tags = {"@part3", "@regression"}, //=> @part3 AND @regression
 //        tags = {"@part3, @regression"}, //=> @part3 OR @regression
@@ -22,13 +22,3 @@ public class CucumberRunner {
 
 }
 
-//smoke test
-//tags= {'@smoketest"}
-//regression test
-//tags={'
-//sanity test or smoke test
-//tags={'
-//sanitytest and smoke test
-//tags={'
-//regression test, but not a sanity test
-//tags={'

@@ -11,12 +11,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.Select;
 import pages_sample.AgePage;
 
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class SampleSteps {
@@ -175,4 +177,181 @@ public class SampleSteps {
         Alert alert = driver.switchTo().alert();
         assertEquals(correctMessage, alert.getText());
     }
+
+    @Then("^I see error if I enter numbers:$")
+    public void iSeeErrorIfIEnterNumbers(Map<String, String> numbersToEnter) throws Throwable {
+        for (Map.Entry<String, String> firstChecks : numbersToEnter.entrySet()) {
+            driver.findElement(By.id("numb")).clear();
+            driver.findElement(By.id("numb")).sendKeys(firstChecks.getKey());
+            driver.findElement(By.className("w3-btn")).click();
+            assertEquals(firstChecks.getValue(), driver.findElement(By.id("ch1_error")).getText());
+        }
+    }
+
+    @Given("^I am on people list page$")
+    public void iAmOnPeopleListPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/list_of_people");
+    }
+
+    @When("^I click add person button$")
+    public void iClickAddPersonButton() throws Throwable {
+        driver.findElement(By.id("addPersonBtn")).click();
+    }
+
+    @Then("^I click add button$")
+    public void iClickAddButton() throws Throwable {
+        driver.findElement(By.id("modal_button")).click();
+    }
+
+
+    @And("^I enter surname: \"([^\"]*)\"$")
+    public void iEnterSurname(String surname) throws Throwable {
+        driver.findElement(By.id("surname")).clear();
+        driver.findElement(By.id("surname")).sendKeys(surname);
+    }
+
+    @And("^I enter person name: \"([^\"]*)\"$")
+    public void iEnterPersonName(String name) throws Throwable {
+        driver.findElement(By.id("name")).clear();
+        driver.findElement(By.id("name")).sendKeys(name);
+    }
+
+
+    @And("^I enter job title: \"([^\"]*)\"$")
+    public void iEnterJobTitle(String jobTitle) throws Throwable {
+        driver.findElement(By.id("job")).clear();
+        driver.findElement(By.id("job")).sendKeys(jobTitle);
+    }
+
+
+    @And("^I choose date of birth: \"([^\"]*)\"$")
+    public void iChooseDateOfBirth(String dateOfBirth) throws Throwable {
+
+        WebElement dateBox = driver.findElement(By.id("dob"));
+        assertEquals("", dateBox.getAttribute("value"));
+
+        dateBox.clear();
+        dateBox.sendKeys(dateOfBirth);
+        assertEquals(dateOfBirth, dateBox.getAttribute("value"));
+    }
+
+    @And("^I select employee status: \"([^\"]*)\"$")
+
+
+
+    @Then("^I see new person in a list$")
+    public void iSeeNewPersonInAList() throws Throwable {
+        assertTrue(driver.findElement(By.id("person3")).isDisplayed());
+    }
+
+
+    @And("^I choose language:$")
+    public void iSelectLanguages() throws Throwable {
+        assertTrue(driver.findElement(By.cssSelector(".w3-check[id='english'][type='checkbox']")).isSelected());
+    }
+
+
+    @And("^I choose employee status: \"([^\"]*)\"$")
+    public void iSelectEmployeeStatus(String status) throws Throwable {
+        Select dropdown = new Select(driver.findElement(By.id("status")));
+        assertEquals("Employee", dropdown.getFirstSelectedOption().getText());
+        dropdown.selectByVisibleText("Contractor");
+        assertEquals("Contractor", dropdown.getFirstSelectedOption().getText());
+    }
+
+    @And("^I choose gender: \"([^\"]*)\"$")
+    public void iSelectGender(String gender) throws Throwable {
+        WebElement female = driver.findElement(By.id("female"));
+        assertFalse(female.isSelected());
+        female.click();
+    }
+
+
+    @When("^I click on edit button$")
+    public void iClickOnEditButton() throws Throwable {
+        driver.findElement(By.xpath("//*[@id='person2']/span[2]")).click();
+    }
+
+    @Given("^I am on entered person page$")
+    public void iAmOnEnteredPersonPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_new_person.html");
+    }
+
+    @Then("^I see editing page$")
+    public void iSeeEditingPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_new_person.html?id=2");
+    }
+
+
+    @And("^I edit surname to: \"([^\"]*)\"$")
+    public void iEditSurnameTo(String surnameEdit) throws Throwable {
+        driver.findElement(By.id("surname")).clear();
+        driver.findElement(By.id("surname")).sendKeys("Pupkin");
+    }
+
+    @And("^I click edit button$")
+    public void iClickEditButton() throws Throwable {
+        driver.findElement(By.xpath("//*[@id='modal_button']")).click();
+    }
+
+    @Then("^I see edited person in a list$")
+    public void iSeeEditedPersonInAList() throws Throwable {
+        assertEquals(driver.findElement(By.xpath("//*[@id='person2']/div/span[1]")).getText(), "Vasja");
+        assertEquals(driver.findElement(By.xpath("//*[@id='person2']/div/span[2]")).getText(), "Pupkin");
+    }
+
+
+    @And("^I click on delete button$")
+    public void iClickOnDeleteButton() throws Throwable {
+        driver.findElement(By.xpath("//*[@id='person0']/span[1]")).click();
+    }
+
+
+    @Then("^I see a list without a deleted person$")
+    public void iSeeAListWithoutADeletedPerson() throws Throwable {
+        assertTrue(driver.findElements(By.cssSelector(".w3-closebtn[onclick='deletePerson(0)']")).isEmpty());
+    }
+
+
+    @And("^I edit name to: \"([^\"]*)\"$")
+    public void andIEditNameTo(String nameEdit) throws Throwable {
+        driver.findElement(By.id("name")).clear();
+        driver.findElement(By.id("name")).sendKeys("Vasja");
+    }
+
+    @And("^I click on reset list button$")
+    public void iClickOnResetListButton() throws Throwable {
+        driver.findElement(By.xpath("//*[@id='addPersonBtn'][2]"));
+    }
+
+    @Then("^I see list is reset$")
+    public void iSeeListIsReset() throws Throwable {
+       assertTrue(driver.findElement(By.id("person0")).isDisplayed());
+        assertTrue(driver.findElement(By.id("person1")).isDisplayed());
+        assertTrue(driver.findElement(By.id("person2")).isDisplayed());
+    }
+
+    @Then("^I see list is reset correctly$")
+    public void iSeeListIsResetCorrectly() throws Throwable {
+        assertTrue(driver.findElement(By.id("person1")).isDisplayed());
+        assertTrue(driver.findElement(By.id("person2")).isDisplayed());
+    }
+
+    @And("^I click on clear all button$")
+    public void iClickOnClearAllButton() throws Throwable {
+        driver.findElement(By.id("addPersonBtn"));
+    }
+
+    @Then("^I see list is clear$")
+    public void iSeeListIsClear() throws Throwable {
+        assertEquals("", driver.findElement(By.id("name")).getText());
+        assertEquals("", driver.findElement(By.id("surname")).getText());
+    }
 }
+
+
+
+
+
+
+

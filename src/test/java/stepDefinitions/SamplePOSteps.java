@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -12,6 +13,7 @@ import pages_sample.*;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class SamplePOSteps {
     private WebDriver driver;
@@ -53,5 +55,35 @@ public class SamplePOSteps {
     public void iEnterValues(Map<String, String> valuesToEnter) throws Throwable {
         agePage.enterName(valuesToEnter.get("name"));
         agePage.enterAge(valuesToEnter.get("age"));
+    }
+
+    @Given("^I am on enter a number page$")
+    public void iAmOnEnterANumberPage() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
+
+    @When("^I enter number <number>$")
+    public void iEnterNumberNumber() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.id("numb")).sendKeys();
+    }
+
+  //  @When("^I click the result button$")
+  //  public void iEnterNumber(String arg0) throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+   //     driver.findElement(By.cssSelector("body > div.w3-row > div > div > div.w3-container.w3-card-4 > button")).click();
+  //  }
+
+ //   @And("^I click the result button$")
+ //   public void iClickTheResultButton() throws Throwable {
+   //     driver.findElement(By.id("result_button_text")).click();
+    //}
+
+
+    @Then("^I see correct result with text$")
+    public void iSeeCorrectResultWithText() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertTrue( driver.findElement(By.id("ch1_error")).isDisplayed());
     }
 }

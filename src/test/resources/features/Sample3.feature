@@ -21,7 +21,7 @@ Feature: Introduction to cucumber part 3
       | name | age | message                   |
       | Tom  | 15  | Hello, Tom, you are a kid |
 
-@Test
+
   Scenario Outline: my third scenario
     Given I am on action page
     When I enter <hello> text

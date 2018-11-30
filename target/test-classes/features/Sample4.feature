@@ -31,4 +31,9 @@ Feature: Introduction to cucumber part 4
       | name | age | message                      |
       | Ann  | 5   | Hello, Ann, you are a kid    |
       | Bob  | 61  | Hello, Bob, you are an adult |
-
+@test111
+    Scenario: my scenatio
+      Given I am on action page1
+      When I enter num and see the error:
+        |   224| Number is too big    |
+        |   4  | Number is too small  |

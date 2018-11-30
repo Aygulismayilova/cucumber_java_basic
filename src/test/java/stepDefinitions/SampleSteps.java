@@ -12,20 +12,24 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import pages_sample.AgePage;
+import pages_sample.AgeSubmittedPage;
 
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class SampleSteps {
     private WebDriver driver;
+    static PeoplePage peoplePage;
+
 
     public SampleSteps() {
         this.driver = Hooks.driver;
+        peoplePage = PageFactory.initElements(Hooks.driver, PeoplePage.class);
     }
-
     @Given("^I am on the home page$")
     public void iAmOnTheHomePage() throws Throwable {
         driver.get("https://kristinek.github.io/site");
@@ -91,7 +95,7 @@ public class SampleSteps {
 
     @When("^I enter text$")
     public void iEnterText() throws Throwable {
-        WebElement text =  driver.findElement(By.cssSelector("#text"));
+        WebElement text = driver.findElement(By.cssSelector("#text"));
         text.clear();
         text.sendKeys("bla-bla");
     }
@@ -103,7 +107,7 @@ public class SampleSteps {
 
     @Then("^I see correct result text$")
     public void iSeeCorrectResultText() throws Throwable {
-       assertEquals("You entered text: \"bla-bla\"", driver.findElement(By.cssSelector("#result_text")).getText());
+        assertEquals("You entered text: \"bla-bla\"", driver.findElement(By.cssSelector("#result_text")).getText());
     }
 
     @When("^I enter \"([^\"]*)\" text$")
@@ -122,7 +126,7 @@ public class SampleSteps {
     public void iEnterNumber(String number) throws Throwable {
         driver.findElement(By.cssSelector("#number")).clear();
         driver.findElement(By.cssSelector("#number")).sendKeys(number);
-        
+
     }
 
     @And("^I click the result number button$")
@@ -161,5 +165,105 @@ public class SampleSteps {
         Alert alert = driver.switchTo().alert();
         alert.accept();
         assertEquals("", driver.findElement(By.id("ch1_error")).getText());
+    }
+
+    @When("^I enter num and see the error:$")
+    public void iTapNumberAndSeeTheError(Map<String, String> myList) throws Throwable {
+        for (Map.Entry <String, String> e : myList.entrySet()) {
+            driver.findElement(By.id("numb")).clear();
+            driver.findElement(By.id("numb")).sendKeys(e.getKey());
+            driver.findElement(By.cssSelector(".w3-btn")).click();
+            assertEquals(e.getValue(), driver.findElement(By.cssSelector("#ch1_error")).getText());
+        }
+    }
+
+
+
+
+
+//----------------------------------------------------------------------------------------------------------------
+
+
+
+    @Given("^I am on page Poeple$")
+    public void iAmOnPagePoeple() throws Throwable {
+       driver.get(peoplePage.getPageUrlOne());
+    }
+
+    @Then("^I click on Add person$")
+    public void iClickOnAddPerson() throws Throwable {
+        peoplePage.addClick();
+    }
+
+
+    @Then("^In new page I enter name: \"([^\"]*)\"$")
+    public void inNewPageIEnterName(String name) throws Throwable {
+            peoplePage.enterName(name);
+    }
+
+    @Then("^In new page I enter job: \"([^\"]*)\"$")
+    public void inNewPageIEnterJob(String job) throws Throwable {
+        peoplePage.enterJob(job);
+    }
+
+    @Then("^I click on Add in the second page$")
+    public void iClickOnAddInTheSecondPage() throws Throwable {
+       peoplePage.addClickOnSecondPage();
+    }
+
+    @Then("^I compare added new person in the list$")
+    public void iCompareAddedNewPersonInTheList() throws Throwable {
+        assertEquals("Alina", peoplePage.textNewPersonasName());
+        assertEquals("Without job", peoplePage.textNewPersonasJob());
+    }
+
+    @Then("^I click on EditPerson$")
+    public void iClickOnEditPerson() throws Throwable {
+        peoplePage.edditOnFirstPage();
+    }
+
+
+
+    @Then("^I click on Delete a new person$")
+    public void iClickOnDeleteANewPerson() throws Throwable {
+        peoplePage.deleteTheLastPerson();
+    }
+
+
+    @Then("^I Edit person data$")
+    public void iEditPersonData() throws Throwable {
+        peoplePage.enterNameSecondPage("Alina");
+        peoplePage.cancelSecondPage();
+    }
+
+    @Then("^I compare all new data$")
+    public void iCompareAllNewData() throws Throwable {
+       assertEquals("Alina",peoplePage.janePersonasName());
+    }
+
+    @Then("^I compare that persona is deleted$")
+    public void iCompareThatPersonaIsDeleted() throws Throwable {
+        assertEquals(0, driver.findElements(By.cssSelector("#person2")).size());
+    }
+
+    @Then("^I reset the page$")
+    public void iResetThePage() throws Throwable {
+        peoplePage.resetOnPage();
+    }
+
+    @Then("^I compare tree persons in the page$")
+    public void iCompareTreePersonsInThePage() throws Throwable {
+        assertEquals(3, driver.findElements(By.cssSelector(".w3-padding-16")).size());
+    }
+
+    @Then("^Click on Clear all fields$")
+    public void clickOnClearAllFields() throws Throwable {
+        peoplePage.clickClearAllFields();
+    }
+
+    @Then("^Compare that the fields are empty$")
+    public void compareThatTheFieldsAreEmpty() throws Throwable {
+        assertEquals("", peoplePage.textNameSecondPage());
+        assertEquals("", peoplePage.enterJob());
     }
 }

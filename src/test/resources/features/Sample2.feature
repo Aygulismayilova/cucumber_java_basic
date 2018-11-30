@@ -2,7 +2,7 @@ Feature: Introduction to cucumber part 2
   As a test engineer
   I want to be able to write and execute a scenario with parameters
 
-  @test
+
   Scenario: my first scenario
     Given I am on action page
     When I enter "TEST" text
@@ -12,7 +12,7 @@ Feature: Introduction to cucumber part 2
   @test
   Scenario: my first scenario
     Given I am on action page
-    When I enter number 5
+    When I enter a number 5
     And I click the age esult button
     Then I see correct result with text 5
 

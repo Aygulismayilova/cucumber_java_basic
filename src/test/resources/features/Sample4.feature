@@ -6,6 +6,7 @@ Feature: Introduction to cucumber part 4
   Background:
     Given I am on age page
 
+  @part4
   Scenario: a new scenario 1 with table
     When I enter values:
       | name | Ann |
@@ -13,6 +14,7 @@ Feature: Introduction to cucumber part 4
     And I click submit age
     Then I see message: "Hello, Ann, you are a kid"
 
+  @part4
   Scenario: a new scenario 1 with table
     When I enter values:
       | name | Bob |
@@ -32,3 +34,10 @@ Feature: Introduction to cucumber part 4
       | Ann  | 5   | Hello, Ann, you are a kid    |
       | Bob  | 61  | Hello, Bob, you are an adult |
 
+@test
+  Scenario: my scenario 5
+    Given I am on number page
+    When I see error if I enter numbers
+    | 3  | Number is too small |
+    |103 | Number is too big  |
+   # And I click submit button

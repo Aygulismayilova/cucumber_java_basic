@@ -25,5 +25,3 @@ Feature: create 1 scenario outline and 1 scenario for page
     And I click submit button
     Then I see correct "Square root of 55 is 7.42"
     Then I see accept alarm message
-
-

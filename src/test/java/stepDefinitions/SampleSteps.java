@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class SampleSteps {
@@ -230,5 +231,189 @@ public class SampleSteps {
         driver.switchTo().alert().accept();
     }
 
+    @When("^I am on the number page$")
+    public void iAmOnTheNumberPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
+
+    @Then("^I see an error if I enter the message:: \"([^\"]*)\"$")
+    public void iSeeAnErrorIfIEnterTheMessage(String arg0) throws Throwable {
+        String text = "Number is too small";
+        assertEquals(text, driver.findElement(By.id("ch1_error")).getText());
+    }
+
+    @When("^I am on number page$")
+    public void iAmOnNumberPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
+
+    @Then("^I see error if I enter numbers:$")
+    public void iSeeErrorIfIEnterNumbers(Map<String, String> numberToEnter) throws Throwable {
+        for (Map.Entry<String, String> firstChecks : numberToEnter.entrySet()) {
+            driver.findElement(By.id("numb")).clear();
+            driver.findElement(By.id("numb")).sendKeys(firstChecks.getKey()); // 3
+            driver.findElement(By.cssSelector(".w3-btn")).click();
+            assertEquals(firstChecks.getValue(), driver.findElement(By.id("ch1_error")).getText()); // Number is too small
+        }
+    }
+
+// 2nd Task beggining
+
+    @Given("^I am on people job list$")
+    public void iAmOnPeopleJobList() throws Throwable {
+
+        driver.get("https://kristinek.github.io/site/tasks/list_of_people_with_jobs.html");
+    }
+
+    @When("^I click Add person button$")
+    public void iClickAddPersonButton() throws Throwable {
+
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_new_person_with_a_job.html");
+        // Thread.sleep(3000);
+        driver.findElement(By.id("addPersonBtn")).click();
+    }
+
+    @And("^I write down Name$")
+    public void iWriteDownName() throws Throwable {
+
+        String name = "John";
+        driver.findElement(By.id("name")).sendKeys(name);
+    }
+
+    @And("^I write down Job$")
+    public void iWriteDownJob() throws Throwable {
+
+        String job = "Developer";
+        driver.findElement(By.id("job")).sendKeys(job);
+
+    }
+
+    @And("^I click Add$")
+    public void iClickAdd() throws Throwable {
+
+        driver.findElement(By.xpath("//*[@id='modal_button'][1]")).click();
+    }
+
+    @Then("^I see that person record is added correctly$")
+    public void iSeeThatPersonRecordIsAddedCorrectly() throws Throwable {
+
+        String name = "John";
+        String job = "Developer";
+
+        assertEquals(name, driver.findElement(By.cssSelector("#person3 > span.w3-xlarge.name")).getText());
+        assertEquals(job, driver.findElement(By.cssSelector("#person3 > span.job")).getText());
+    }
+
+    @And("^I click Cancel button$")
+    public void iClickCancelButton() throws Throwable {
+
+        driver.findElement(By.xpath("//*[@id='modal_button'][2]")).click();
+    }
+
+    @Then("^I see that all information is deleted$")
+    public void iSeeThatAllInformationIsDeleted() throws Throwable {
+
+        assertTrue(driver.findElement(By.cssSelector("#person0 > span.w3-xlarge.name")).isDisplayed());
+        assertTrue(driver.findElement(By.cssSelector("#person1 > span.w3-xlarge.name")).isDisplayed());
+        assertTrue(driver.findElement(By.cssSelector("#person2 > span.w3-xlarge.name")).isDisplayed());
+    }
+
+    @And("^I click Clear all fields button$")
+    public void iClickClearAllFieldsButton() throws Throwable {
+
+        driver.findElement(By.cssSelector("//*[@id='addPersonBtn']")).click();
+    }
+
+    @When("^I click Edit person button with pen$")
+    public void iClickEditPersonButtonWithPen() throws Throwable {
+
+        driver.findElement(By.xpath("//*[@id=\"person0\"]/span[2]")).click();
+    }
+
+    @And("^I delete name and surname$")
+    public void iDeleteNameAndSurname() throws Throwable {
+
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_new_person_with_a_job.html?id=0");
+        // Thread.sleep(2000);
+        driver.findElement(By.id("name")).clear();
+        driver.findElement(By.id("job")).clear();
+    }
+
+    @Then("^I see that new person record is added correctly$")
+    public void iSeeThatNewPersonRecordIsAddedCorrectly() throws Throwable {
+
+        String name = "John";
+        String job = "Developer";
+
+        assertEquals(name, driver.findElement(By.xpath("//*[@id=\"person0\"]/span[3]")).getText());
+        assertEquals(job, driver.findElement(By.cssSelector("#person0 > span.job")).getText());
+    }
+
+
+    @Then("^I see that all information is added correctrly$")
+    public void iSeeThatAllInformationIsAddedCorrectrly() throws Throwable {
+
+        String name = "John";
+        String job = "Developer";
+
+        assertEquals(name, driver.findElement(By.xpath("//*[@id=\"person0\"]/span[3]")).getText());
+        assertEquals(job, driver.findElement(By.cssSelector("#person0 > span.job")).getText());
+    }
+
+    @And("^I reset the list$")
+    public void iResetTheList() throws Throwable {
+
+        driver.findElement(By.xpath("//*[@id=\"addPersonBtn\"][2]")).click();
+    }
+
+    @Then("^I see that all information reseted back$")
+    public void iSeeThatAllInformationResetedBack() throws Throwable {
+
+        String name = "Mike";
+        String job = "Web Designer";
+
+        assertEquals(name, driver.findElement(By.xpath("//*[@id=\"person0\"]/span[3]")).getText());
+        assertEquals(job, driver.findElement(By.cssSelector("#person0 > span.job")).getText());
+    }
+
+    @When("^I click delete cross next to person name$")
+    public void iClickDeleteCrossNextToPersonName() throws Throwable {
+
+        driver.findElement(By.xpath("//*[@class=\"w3-closebtn closebtn w3-padding w3-margin-right w3-medium\"][1]")).click();
+    }
+
+    @And("^I see that name is deleted$")
+    public void iSeeThatNameIsDeleted() throws Throwable {
+
+        assertTrue(driver.findElement(By.cssSelector("#person1 > span.w3-xlarge.name")).isDisplayed());
+        assertTrue(driver.findElement(By.cssSelector("#person2 > span.w3-xlarge.name")).isDisplayed());
+    }
+
+    @Then("^I see that all information is reseted$")
+    public void iSeeThatAllInformationIsReseted() throws Throwable {
+
+        String name = "Mike";
+        String job = "Web Designer";
+
+        assertEquals(name, driver.findElement(By.xpath("//*[@id=\"person0\"]/span[3]")).getText());
+        assertEquals(job, driver.findElement(By.cssSelector("#person0 > span.job")).getText());
+
+        assertTrue(driver.findElement(By.cssSelector("#person1 > span.w3-xlarge.name")).isDisplayed());
+        assertTrue(driver.findElement(By.cssSelector("#person2 > span.w3-xlarge.name")).isDisplayed());
+    }
+
+    @And("^I click Clear all fields buttonN$")
+    public void iClickClearAllFieldsButtonN() throws Throwable {
+
+        driver.findElement(By.xpath("//*[@id=\"addPersonBtn\"][1]")).click();
+    }
+
+    @Then("^all previously filled fields are empty$")
+    public void allPreviouslyFilledFieldsAreEmpty() throws Throwable {
+
+        assertFalse(driver.findElement(By.xpath("//*[@id=\"name\"]")).isSelected());
+        assertFalse(driver.findElement(By.xpath("//*[@id=\"job\"]")).isSelected());
+    }
 }
+
 

@@ -10,8 +10,10 @@ import org.junit.runner.RunWith;
         plugin = {"pretty", "html:cucumber-report/html-report",
                 "junit:cucumber-report/junit-report.xml",
                 "json:cucumber-report/json-report.json"},
- //       tags = {"@test1, @test2, @test3, @test4"},
-       tags = {"@testOut, @ @testOutEx"},
+ //       tags = {"@test1, @test2, @test3, @test4"},  for Task 1
+ //      tags = {"@testOut, @ @testOutEx"}, for Task 1
+//          tags = {"@test2"},
+        tags = {"@testA, @testB, @testC, @testD, @testE, @testF, @testG"}, //2nd Task tests
   //         tags = {"@working"},
 //        tags = {"~@not_working", "~@bug"},
 //        tags = {"@test", "~@bug"},

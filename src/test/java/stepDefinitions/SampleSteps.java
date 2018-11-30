@@ -12,15 +12,18 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import pages_sample.AgePage;
+import sun.awt.windows.WEmbeddedFrame;
 
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class SampleSteps {
     private WebDriver driver;
+
 
     public SampleSteps() {
         this.driver = Hooks.driver;
@@ -175,5 +178,135 @@ public class SampleSteps {
     public void iCheckErrorMessage(String text) throws Throwable {
         assertEquals(text, driver.findElement(By.id("ch1_error")).getText());
 
+    }
+
+    @Then("^I see error if I enter numbers:$")
+    public void iSeeErrorIfIEnterNumbers(Map<String, String> numbersToEnter) throws Throwable {
+        for (Map.Entry<String, String> firstchecks : numbersToEnter.entrySet()) {
+            driver.findElement(By.id("numb")).clear();
+            driver.findElement(By.id("numb")).sendKeys(firstchecks.getKey());
+            driver.findElement(By.cssSelector(".w3-btn")).click();
+            assertEquals(firstchecks.getValue(), driver.findElement(By.id("ch1_error")).getText());
+            System.out.println("number is " + firstchecks.getKey());
+            System.out.println("error is " + firstchecks.getValue());
+        }
+    }
+
+    @Given("^I am on people with job list page$")
+    public void iAmOnPeopleWithJobListPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/list_of_people_with_jobs");
+    }
+
+    @Then("^I click Add person button$")
+    public void iClickAddPersonButton() throws Throwable {
+        WebElement addPersonButton = driver.findElement(By.cssSelector("[onclick=\"openModalForAddPersonWithJob()\"]"));
+        addPersonButton.click();
+    }
+
+    @And("^I enter firstname: \"([^\"]*)\"$")
+    public void iEnterFirstname(String firstname) throws Throwable {
+        driver.findElement(By.id("name")).sendKeys(firstname);
+
+    }
+
+    @And("^I enter job: \"([^\"]*)\"$")
+    public void iEnterJob(String job) throws Throwable {
+        driver.findElement(By.id("job")).sendKeys(job);
+    }
+
+    @Then("^I click Add button$")
+    public void iClickAddButton() throws Throwable {
+        WebElement addButton = driver.findElement(By.cssSelector("[onclick='addPersonWithJobToList()']"));
+        addButton.click();
+    }
+
+    @Then("^I check the added person \"([^\"]*)\" and \"([^\"]*)\" is in the list$")
+    public void iCheckTheAddedPersonAndIsInTheList(String name, String job) throws Throwable {
+        WebElement nameInList = driver.findElement(By.cssSelector("#person3 > .w3-xlarge"));
+        assertEquals(name, nameInList.getText());
+        WebElement jobInList = driver.findElement(By.cssSelector("#person3 > .job"));
+        assertEquals(job, jobInList.getText());
+
+    }
+
+    @And("^I click edit person button$")
+    public void iClickEditPersonButton() throws Throwable {
+        driver.findElement(By.cssSelector("[onclick='openModalForEditPersonWithJob(3)']")).click();
+    }
+
+    @And("^I change name to: \"([^\"]*)\"$")
+    public void iChangeNameTo(String newname) throws Throwable {
+        driver.findElement(By.id("name")).clear();
+        driver.findElement(By.id("name")).sendKeys(newname);
+    }
+
+    @And("^I change job to: \"([^\"]*)\"$")
+    public void iChangeJobTo(String newjob) throws Throwable {
+        driver.findElement(By.id("job")).clear();
+        driver.findElement(By.id("job")).sendKeys(newjob);
+    }
+
+    @Then("^I click edit button$")
+    public void iClickEditButton() throws Throwable {
+        driver.findElement(By.cssSelector("[onclick='editPersonWithJob(3)']")).click();
+    }
+
+    @And("^I check the edited person name \"([^\"]*)\" and job \"([^\"]*)\" in the list$")
+    public void iCheckTheEditedPersonNameAndJobInTheList(String newname, String newjob) throws Throwable {
+        WebElement nameInList = driver.findElement(By.cssSelector("#person3 > .w3-xlarge"));
+        assertEquals(newname, nameInList.getText());
+        WebElement jobInList = driver.findElement(By.cssSelector("#person3 > .job"));
+        assertEquals(newjob, jobInList.getText());
+    }
+
+
+    @Then("^I click delete button$")
+    public void iClickDeleteButton() throws Throwable {
+        driver.findElement(By.cssSelector("[onclick='deletePerson(0)']")).click();
+    }
+
+    @And("^I check the deleted person disappeared from list$")
+
+    public void iCheckTheDeletedPersonDisappearedFromList() throws Throwable {
+        assertEquals(0, driver.findElements(By.cssSelector("#person0")).size());
+    }
+
+
+    @And("^click reset button$")
+    public void clickResetButton() throws Throwable {
+        driver.findElement(By.cssSelector("[onclick='resetListOfPeople()']")).click();
+    }
+
+    @And("^check the added person dissapeared$")
+    public void checkTheAddedPersonDissapeared() throws Throwable {
+        assertEquals(0, driver.findElements(By.cssSelector("#person3")).size());
+    }
+
+
+    @And("^check the edited person dissapeared$")
+    public void checkTheEditedPersonDissapeared() throws Throwable {
+        assertEquals(0, driver.findElements(By.cssSelector("#person3")).size());
+    }
+
+    @Then("^I check the list is correct$")
+    public void iCheckTheListIsCorrect() throws Throwable {
+        assertEquals("Mike", driver.findElement(By.cssSelector("#person0 > .name")).getText());
+        assertEquals("Web Designer", driver.findElement(By.cssSelector("#person0 > .job")).getText());
+        assertEquals("Jill", driver.findElement(By.cssSelector("#person1 > .name")).getText());
+        assertEquals("Support", driver.findElement(By.cssSelector("#person1 > .job")).getText());
+        assertEquals("Jane", driver.findElement(By.cssSelector("#person2 > .name")).getText());
+        assertEquals("Accountant", driver.findElement(By.cssSelector("#person2 > .job")).getText());
+    }
+
+
+    @Then("^I click clear all button$")
+    public void iClickClearAllButton() throws Throwable {
+        driver.findElement(By.cssSelector("[onclick='openModalForAddPersonWithJob()']")).click();
+    }
+
+    @And("^I check name and job fields are empty$")
+    public void iCheckNameAndJobFieldsAreEmpty() throws Throwable {
+        assertEquals("", driver.findElement(By.id("name")).getAttribute("value"));
+        assertEquals("", driver.findElement(By.id("job")).getAttribute("value"));
     }
 }

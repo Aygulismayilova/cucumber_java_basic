@@ -32,3 +32,9 @@ Feature: Introduction to cucumber part 4
       | Ann  | 5   | Hello, Ann, you are a kid    |
       | Bob  | 61  | Hello, Bob, you are an adult |
 
+@testtwo
+  Scenario: my scenario
+    When I am on enter a number page
+    Then I see error if I enter numbers:
+      | 3   | Number is too small |
+      | 103 | Number is too big   |

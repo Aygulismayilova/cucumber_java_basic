@@ -10,7 +10,7 @@ Feature: Introduction to cucumber task1
     And I check alert message
     Then I click OK in alert message
 
-  @testtwo
+
   Scenario Outline: Incorrect number scenario
     When I am on enter a number page
     Then I enter an incorrect number "<number>"

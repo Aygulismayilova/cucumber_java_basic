@@ -171,4 +171,25 @@ public class SampleSteps {
         alert.accept();
     }
     //End of Task 1 Methods
+
+    @Then("^I see error if I enter numbers:$")
+    public void iSeeErrorIfIEnterNumbers(Map<String, String> valuesToEnter) throws Throwable {
+        for (Map.Entry<String, String> e : valuesToEnter.entrySet()) {
+            driver.findElement(By.id("numb")).clear();
+            driver.findElement(By.id("numb")).sendKeys(e.getKey());
+            driver.findElement(By.className("w3-orange")).click();
+            assertEquals(e.getValue(), driver.findElement(By.id("ch1_error")).getText());
+            System.out.println("Number is " + e.getKey() + " -> ERROR: " + e.getValue());
+        }
+    }
+
+//    @When("^I enter values:$")
+//    public void iEnterValues(Map<String, String> valuesToEnter) throws Throwable {
+//        for (Map.Entry<String, String> e : valuesToEnter.entrySet()) {
+//            driver.findElement(By.id(e.getKey())).clear();
+//            driver.findElement(By.id(e.getKey())).sendKeys(e.getValue());
+//            System.out.println("key is " + e.getKey());
+//            System.out.println("value is " + e.getValue());
+//        }
+//    }
 }

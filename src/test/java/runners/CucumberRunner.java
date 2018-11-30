@@ -19,7 +19,7 @@ import org.junit.runner.RunWith;
 //        tags = {"@test", "~@bug"},
 //        tags = {"~@not_working", "@part1", "~@bug"}, // => NOT @not_working AND @part1 AND NOT @bug
 //        tags = {"@part3", "@regression"}, //=> @part3 AND @regression
-//        tags = {"@part3, @regression"}, //=> @part3 OR @regression
+//        tags = {"@part3, @regression"}, //=> @part3 OR @regressionn
 //        tags = {"@debug1, @smoke1"},
        glue = {"stepDefinitions"}
 )

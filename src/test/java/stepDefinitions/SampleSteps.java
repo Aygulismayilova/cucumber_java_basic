@@ -12,6 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.PageFactory;
 import pages_sample.AgePage;
+import pages_sample.PeopleWithJobList;
 import sun.awt.windows.WEmbeddedFrame;
 
 import java.util.List;
@@ -21,6 +22,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+
+
 public class SampleSteps {
     private WebDriver driver;
 
@@ -28,6 +31,8 @@ public class SampleSteps {
     public SampleSteps() {
         this.driver = Hooks.driver;
     }
+
+
 
     @Given("^I am on the home page$")
     public void iAmOnTheHomePage() throws Throwable {

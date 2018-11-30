@@ -3,7 +3,7 @@ Feature: Introduction to cucumber part 3
   As a test engineer
   I want to be able to write and execute a scenario outline
 
-  @test
+
   Scenario Outline: a new scenario outline
     Given I am on age page
     When I enter name: "<name>"
@@ -18,7 +18,7 @@ Feature: Introduction to cucumber part 3
       | Bob   | 61  | Hello, Bob, you are an adult   |
 
 
-  @test1
+
   Scenario Outline: my third scenario 1
     Given I am on action page
     When I enter "<test>" text

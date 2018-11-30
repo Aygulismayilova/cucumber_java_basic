@@ -3,14 +3,14 @@ Feature: Introduction to cucumber part 3
   As a test engineer
   I want to be able to write and execute a scenario outline
 
-  @debugs
+
   Scenario Outline: a new scenario outline
     Given I am on age page
     When I enter name: "<name>"
     And I enter age: <age>
     And I click submit age
     Then I see message: "<message>"
-  @working
+
     Examples:
       | name  | age | message                        |
       | Ann   | 5   | Hello, Ann, you are a kid      |
@@ -18,13 +18,13 @@ Feature: Introduction to cucumber part 3
       | Bob   | 61  | Hello, Bob, you are an adult   |
 
 
-  @debugs
+
   Scenario Outline: my third scenario 1
     Given I am on action page
     When I enter "<test>" text
     And I click the result button
     Then I see correct result with text "test"
-@bug
+
     Examples:
       | test |
       | 6    |

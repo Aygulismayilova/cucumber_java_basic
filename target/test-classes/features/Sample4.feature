@@ -20,7 +20,7 @@ Feature: Introduction to cucumber part 4
     And I click submit age
     Then I see message: "Hello, Bob, you are an adult"
 
-  @debug
+
   Scenario Outline: a new scenario outline 2
     When I enter values:
       | name | <name> |
@@ -31,4 +31,15 @@ Feature: Introduction to cucumber part 4
       | name | age | message                      |
       | Ann  | 5   | Hello, Ann, you are a kid    |
       | Bob  | 61  | Hello, Bob, you are an adult |
+
+@test11
+    Scenario: my scenario with tables
+      When I am on number page
+      Then I see error if I enter number:
+        |3  |  Number is too small|
+        |103| Number is too big   |
+
+
+  @debug
+  Scenario Outline:
 

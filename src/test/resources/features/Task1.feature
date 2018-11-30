@@ -3,7 +3,7 @@ Feature: Introduction to cucumber part 1
   I want to be able to write and execute a simple scenario
 
 
-  @test
+
   Scenario Outline: my second first scenario
     Given  I am on new action page
     When  I enter number "<number>"
@@ -14,7 +14,7 @@ Feature: Introduction to cucumber part 1
       | 20     | Number is too small   |
       | 200    | Number is too big     |
       | asd    | Please enter a number |
-@test
+
   Scenario: my second scenario
     Given  I am on new action page
     When  I enter number "64"

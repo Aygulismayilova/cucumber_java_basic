@@ -32,3 +32,10 @@ Feature: Introduction to cucumber part 4
       | Ann  | 5   | Hello, Ann, you are a kid    |
       | Bob  | 61  | Hello, Bob, you are an adult |
 
+
+  Scenario:my scenario
+  Given  I am on new action page
+  Then  I the new error messeges:
+  | 3  | Number is too small |
+  | 150| Number is too big   |
+    And I click the submit button

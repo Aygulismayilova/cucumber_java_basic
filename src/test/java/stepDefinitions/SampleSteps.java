@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class SampleSteps {
@@ -94,10 +95,10 @@ public class SampleSteps {
     public void iEnterText() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
         driver.findElement(By.id("text")).clear();
-        String name ="AnjuAlex";
+        String name = "AnjuAlex";
         driver.findElement(By.id("text")).sendKeys(name);
 
-driver.findElement(By.id("text"));
+        driver.findElement(By.id("text"));
     }
 
     @And("^I click the result button$")
@@ -110,7 +111,7 @@ driver.findElement(By.id("text"));
     @Then("^I see correct result text$")
     public void iSeeCorrectResultText() throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        assertEquals("You entered text: \"AnjuAlex\"" ,driver.findElement(By.id("result_text")).getText() );
+        assertEquals("You entered text: \"AnjuAlex\"", driver.findElement(By.id("result_text")).getText());
     }
 
 
@@ -140,7 +141,7 @@ driver.findElement(By.id("text"));
     @Then("^I see correct result text (\\d+)$")
     public void iSeeCorrectResultText(int arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        assertEquals("You entered number: \"5\"" ,driver.findElement(By.id("result_number")).getText() );
+        assertEquals("You entered number: \"5\"", driver.findElement(By.id("result_number")).getText());
 
     }
 
@@ -174,7 +175,7 @@ driver.findElement(By.id("text"));
     @Then("^I see my correct result text \"([^\"]*)\"$")
     public void iSeeMyCorrectResultText(String arg0) throws Throwable {
         // Write code here that turns the phrase above into concrete actions
-        assertTrue( driver.findElement(By.id("ch1_error")).isDisplayed());
+        assertTrue(driver.findElement(By.id("ch1_error")).isDisplayed());
     }
 
     @Then("^I see  the exact error message$")
@@ -182,5 +183,118 @@ driver.findElement(By.id("text"));
         // Write code here that turns the phrase above into concrete actions
         Alert alert = driver.switchTo().alert();
         assertEquals("Square root of 64 is 8.00", alert.getText());
+    }
+
+    @Then("^I the new error messeges:$")
+    public void iTheNewErrorMesseges(Map<String, String> numberToEnter) throws Throwable {
+        for (Map.Entry<String, String> firstChecks : numberToEnter.entrySet()) {
+            driver.findElement(By.id("numb")).clear();
+            driver.findElement(By.id("numb")).sendKeys(firstChecks.getKey()); // 3
+            driver.findElement(By.cssSelector(".w3-btn")).click();
+            assertEquals(firstChecks.getValue(), driver.findElement(By.id("ch1_error")).getText()); // Number is too small
+
+        }
+    }
+
+    @Given("^I am on the people with job list page$")
+    public void iAmOnThePeopleWithJobListPage() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.get("https://kristinek.github.io/site/tasks/list_of_people_with_jobs.html");
+    }
+
+    @When("^I enter values for person$")
+    public void iEnterValuesForPerson(Map<String, String> valuesToEnter) throws Throwable {
+        driver.findElement(By.id("name")).clear();
+        driver.findElement(By.id("name")).sendKeys(valuesToEnter.get("name"));
+        driver.findElement(By.id("job")).clear();
+        driver.findElement(By.id("job")).sendKeys(valuesToEnter.get("job"));
+        driver.findElement(By.cssSelector("#modal_button")).click();
+        System.out.printf("");
+    }
+
+    @And("^click on Add button$")
+    public void clickOnAddButton() throws Throwable {
+        driver.findElement(By.id("addPersonBtn")).click();
+    }
+
+    @Then("^I click edit button$")
+    public void iClickEditButton() throws Throwable {
+        driver.findElement(By.cssSelector("#person0 > span.w3-closebtn.editbtn.w3-padding.w3-margin-right.w3-medium > i")).click();
+
+    }
+
+    @Then("^I clear both name and job field$")
+    public void iClearBothNameAndJobField() throws Throwable {
+        driver.findElement(By.id("name")).clear();
+        driver.findElement(By.id("job")).clear();
+    }
+
+    @Then("^I enter the new details$")
+    public void iEnterTheNewDetails() throws Throwable {
+        String name = "Mike1";
+        driver.findElement(By.id("name")).sendKeys(name);
+        String job = "Web Designer1";
+        driver.findElement(By.id("job")).sendKeys(job);
+
+    }
+
+    @And("^I click on edit$")
+    public void iClickOnEdit() throws Throwable {
+        driver.findElement(By.cssSelector("#modal_button")).click();
+
+    }
+
+    @When("^I click on delete button$")
+    public void iClickOnDeleteButton() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.cssSelector("#person1 > span.w3-closebtn.closebtn.w3-padding.w3-margin-right.w3-medium")).click();
+    }
+
+
+
+    @Then("^I check it is correct$")
+    public void iCheckItIsCorrect() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals("Mike1",driver.findElement(By.cssSelector("#person0 > span.w3-xlarge.name")).getText());
+        assertEquals( "Web Designer1",driver.findElement(By.cssSelector("#person0 > span.job")).getText());
+    }
+
+    @Then("^I click resetting the list$")
+    public void iClickResettingTheList() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.xpath("//*[@id='addPersonBtn'][2]")).click();
+    }
+
+    @Then("^I check new person is not present in list$")
+    public void iCheckNewPersonIsNotPresentInList() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertTrue(driver.findElement(By.cssSelector("#person0 > span.w3-xlarge.name")).isDisplayed());
+        assertTrue(driver.findElement(By.cssSelector("#person1 > span.w3-xlarge.name")).isDisplayed());
+        assertTrue(driver.findElement(By.cssSelector("#person2 > span.w3-xlarge.name")).isDisplayed());
+        assertTrue(driver.findElements(By.cssSelector("#person3 > span.w3-xlarge.name")).isEmpty());
+    }
+
+    @Then("^I check page is showing correct list$")
+    public void iCheckPageIsShowingCorrectList() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertTrue(driver.findElement(By.cssSelector("#person0 > span.w3-xlarge.name")).isDisplayed());
+        assertTrue(driver.findElement(By.cssSelector("#person1 > span.w3-xlarge.name")).isDisplayed());
+        assertTrue(driver.findElement(By.cssSelector("#person2 > span.w3-xlarge.name")).isDisplayed());
+        assertTrue(driver.findElements(By.cssSelector("#person3 > span.w3-xlarge.name")).isEmpty());
+
+
+    }
+
+    @Then("^I click on clear button$")
+    public void iClickOnClearButton() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        driver.findElement(By.xpath("//*[@id='addPersonBtn'][1]")).click();
+    }
+
+    @Then("^I check feild is empty$")
+    public void iCheckFeildIsEmpty() throws Throwable {
+        // Write code here that turns the phrase above into concrete actions
+        assertEquals("",driver.findElement(By.cssSelector("#name")).getText());
+        assertEquals( "",driver.findElement(By.cssSelector("#job")).getText());
     }
 }

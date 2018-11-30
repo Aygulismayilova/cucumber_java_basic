@@ -32,3 +32,12 @@ Feature: Introduction to cucumber part 4
       | Ann  | 5   | Hello, Ann, you are a kid    |
       | Bob  | 61  | Hello, Bob, you are an adult |
 
+@try
+   Scenario: a new scenario for error cases
+     Given I am on enterNumber page
+     Then I enter numbers i see a message error
+       | 5      | Number is too small    |
+       | 5878   | Number is too big      |
+
+
+

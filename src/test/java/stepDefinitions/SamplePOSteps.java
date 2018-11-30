@@ -56,5 +56,4 @@ import static org.junit.Assert.assertEquals;
             agePage.enterName(valuesToEnter.get("name"));
             agePage.enterAge(valuesToEnter.get("age"));
         }
-
     }

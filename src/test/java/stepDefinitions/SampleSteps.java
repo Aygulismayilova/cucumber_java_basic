@@ -219,8 +219,16 @@ public class SampleSteps {
         assertEquals(message, driver.findElement(By.id("ch1_error")).getText());
     }
 
-//    @Then("^I see messageT: \"([^\"]*)\"$")
-//    public void iSeeMessageT(String arg0) throws Throwable {
-//        assertEquals(text, driver.findElement(By.id("ch1_error")).getText());
-//    }
+    @And("^I check alert message if there is one$")
+    public void iCheckAlertMessageIfThereIsOne() throws Throwable {
+        Alert alertMessage = driver.switchTo().alert();
+        assertEquals("Alert text : Square root of 64 is 8.00", alertMessage.getText());
+    }
+
+    @And("^I click OK button in alert message$")
+    public void iClickOKButtonInAlertMessage() throws Throwable {
+        driver.switchTo().alert().accept();
+    }
+
 }
+

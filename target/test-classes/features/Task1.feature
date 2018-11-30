@@ -39,11 +39,10 @@ Feature: Task 1
 
   @testOutEx
     Examples:
-      | number  | message                   |
-      | 27      | Number is too small       |
-      | 150     | Number is too big         |
-      | T       | Please enter a number     |
-      | 64      | Square root of 64 is 8.00 |
+      | number | message               |
+      | 27     | Number is too small   |
+      | 150    | Number is too big     |
+      | T      | Please enter a number |
 
 #For error cases:
 #1.1) enter number too small
@@ -51,10 +50,3 @@ Feature: Task 1
 #1.3) enter text intead of the number
 #1.4)Enter correct number
 #
-#
-#
-#    Given I am on age page
-#    When I enter name: "Ann"
-#    And I enter age: 5
-#    And I click submit age
-#    Then I see message: "Hello, Ann, you are a kid"

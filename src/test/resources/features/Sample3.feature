@@ -36,7 +36,6 @@ Feature: Introduction to cucumber part 3
       | text  |
 
 
-  @test
     Examples:
       | test     |
       | aloha    |

@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import cucumber.api.PendingException;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -52,6 +53,87 @@ public class SampleSteps {
         driver.findElement(By.id("age")).sendKeys(String.valueOf(age));
     }
 
+
+    @And("^I should see menu$")
+    public void iShouldSeeMenu() throws Throwable {
+        assertTrue(driver.findElement(By.cssSelector(".w3-navbar")).isDisplayed());
+    }
+
+
+    @When("^I enter text$")
+    public void iEnterText() throws Throwable {
+
+        WebElement enterText = driver.findElement(By.xpath("//*[@id='text']"));
+        enterText.clear();
+        String textInput = "bla";
+        enterText.sendKeys(textInput);
+    }
+
+    @And("^I click the result$")
+    public void iClickTheResult() throws Throwable {
+        driver.findElement(By.xpath("//*[@id='result_button_text']")).click();
+    }
+
+    @Then("^I see correct result text$")
+    public void iSeeCorrectResultText() throws Throwable {
+        WebElement result = driver.findElement(By.xpath("//*[@id='result_text']"));
+        assertEquals("You entered text: \"bla\"", result.getText());
+    }
+
+    @When("^I enter \"([^\"]*)\" text$")
+    public void iEnterText(String text) throws Throwable {
+        WebElement enterText = driver.findElement(By.xpath("//*[@id='text']"));
+        enterText.clear();
+        enterText.sendKeys(text);
+    }
+
+    @Then("^I see correct result with text \"([^\"]*)\"$")
+    public void iSeeCorrectResultWithText(String text) throws Throwable {
+        WebElement result = driver.findElement(By.xpath("//*[@id='result_text']"));
+        assertEquals("You entered text: \"hello\"", result.getText());
+    }
+
+    @When("^I enter number (\\d+)$")
+    public void iEnterNumber(int number) throws Throwable {
+        driver.findElement(By.id("number")).clear();
+        driver.findElement(By.id("number")).sendKeys(String.valueOf(number));
+
+    }
+
+    @Then("^I see correct result text with number (\\d+)$")
+    public void iSeeCorrectResultTextWithNumber(int number) throws Throwable {
+        WebElement result = driver.findElement(By.xpath("//*[@id='result_number']"));
+        assertEquals("You entered number: \"number\"", result.getText());
+    }
+
+    @Given("^I am on action page$")
+    public void iAmOnActionPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/examples/actions");
+    }
+
+
+    @Given("^I am on act page$")
+    public void iAmOnActPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/examples/actions");
+    }
+
+    @Then("^I see correct result with text: \"([^\"]*)\"$")
+    public void iSeeCorrectResultWithText1(String text) throws Throwable {
+        WebElement enterText = driver.findElement(By.xpath("//*[@id='text']"));
+        enterText.clear();
+        enterText.sendKeys(text);
+    }
+
+
+    @When("^I enter text: \"([^\"]*)\"$")
+    public void iEnterText1(String text) throws Throwable {
+        WebElement enterText = driver.findElement(By.xpath("//*[@id='text']"));
+        enterText.clear();
+        enterText.sendKeys(text);
+    }
+
+    // SAMPLE_4
+
     @Given("^I (?:am on|open) age page$")
     public void iAmOnAgePage() throws Throwable {
         driver.get("https://kristinek.github.io/site/examples/age");
@@ -76,4 +158,21 @@ public class SampleSteps {
             System.out.println("value is " + e.getValue());
         }
     }
+
+
+    @When("^I am on number page$")
+    public void iAmOnNumberPage() throws Throwable {
+        driver.get("https://kristinek.github.io/site/tasks/enter_a_number");
+    }
+
+    @Then("^I see error if I enter numbers:$")
+    public void iSeeErrorIfIEnterNumbers(Map<String, String> numberToEnter) throws Throwable {
+        for (Map.Entry<String, String> firstChecks : numberToEnter.entrySet()) {
+            driver.findElement(By.id("numb")).clear();
+            driver.findElement(By.id("numb")).sendKeys(firstChecks.getKey()); // 3
+            driver.findElement(By.cssSelector(".w3-btn")).click();
+            assertEquals(firstChecks.getValue(), driver.findElement(By.id("ch1_error")).getText()); // Number is too small
+        }
+    }
 }
+

@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/resources/features/Task1.feature",
+        features = "src/test/resources/features/",
         plugin = {"pretty", "html:cucumber-report/html-report",
                 "junit:cucumber-report/junit-report.xml",
                 "json:cucumber-report/json-report.json"},
@@ -21,7 +21,7 @@ import org.junit.runner.RunWith;
 //        tags = {"@sanityTest, @smokeTest"},
 //        tags = {"@sanityTest", "@smokeTest"},
 //        tags = {"@regressionTest", "~@sanityTest"},
-        tags = {"@Task1","@Task2"},
+        tags = {"@test123"},
         glue = {"stepDefinitions"}
 )
 public class CucumberRunner {
